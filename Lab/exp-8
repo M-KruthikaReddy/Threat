@@ -1,0 +1,66 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNgUqbOyLe42O+fMfI9LK0o",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Lab/exp-8\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 12,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "odH7iuT_tHDT",
+        "outputId": "8faf82bd-62ae-452b-9607-48d968a26f94"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Attempting dictionary attack on stolen hash...\n",
+            "Password cracked: 'letmein'\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib\n",
+        "\n",
+        "# Simulate a stolen password hash (a real system would never expose this!)\n",
+        "stolen_hash = hashlib.sha256(\"letmein\".encode()).hexdigest()\n",
+        "wordlist = [\"123456\", \"password\", \"admin\", \"letmein\", \"qwerty\"]\n",
+        "print(\"Attempting dictionary attack on stolen hash...\")\n",
+        "for word in wordlist:\n",
+        "    guess_hash = hashlib.sha256(word.encode()).hexdigest()\n",
+        "    if guess_hash == stolen_hash:\n",
+        "        print(f\"Password cracked: '{word}'\")\n",
+        "        break\n",
+        "else:\n",
+        "    print(\"Password not found in wordlist.\")"
+      ]
+    }
+  ]
+}
