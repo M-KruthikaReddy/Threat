@@ -1,0 +1,88 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPpeaIGEgflb1PNsQIDpw43",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Lab-2/exp-4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 23,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "odH7iuT_tHDT",
+        "outputId": "4bd7f581-ebd3-436a-d309-09af18eae172"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Collecting scapy\n",
+            "  Downloading scapy-2.7.0-py3-none-any.whl.metadata (5.8 kB)\n",
+            "Downloading scapy-2.7.0-py3-none-any.whl (2.6 MB)\n",
+            "\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/2.6 MB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m2.6/2.6 MB\u001b[0m \u001b[31m133.2 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m2.6/2.6 MB\u001b[0m \u001b[31m71.4 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hInstalling collected packages: scapy\n",
+            "Successfully installed scapy-2.7.0\n",
+            "Capturing first 10 packets...\n",
+            "\n",
+            "Ether / IP / TCP 172.28.0.12:8080 > 172.28.0.1:51502 PA / Raw\n",
+            "Ether / IP / TCP 172.28.0.1:51502 > 172.28.0.12:8080 A\n",
+            "Ether / IP / TCP 172.28.0.12:8080 > 172.28.0.1:51502 PA / Raw\n",
+            "Ether / IP / TCP 172.28.0.1:51502 > 172.28.0.12:8080 A\n",
+            "Ether / IP / TCP 172.28.0.12:8080 > 172.28.0.1:51502 PA / Raw\n",
+            "Ether / IP / TCP 172.28.0.1:51502 > 172.28.0.12:8080 A\n",
+            "Ether / IP / TCP 172.28.0.12:8080 > 172.28.0.1:51502 PA / Raw\n",
+            "Ether / IP / TCP 172.28.0.1:51502 > 172.28.0.12:8080 A\n",
+            "Ether / IP / TCP 172.28.0.12:8080 > 172.28.0.1:51502 PA / Raw\n",
+            "Ether / IP / TCP 172.28.0.1:51502 > 172.28.0.12:8080 A\n"
+          ]
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "<Sniffed: TCP:10 UDP:0 ICMP:0 Other:0>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 23
+        }
+      ],
+      "source": [
+        "!pip install scapy\n",
+        "from scapy.all import sniff\n",
+        "\n",
+        "def packet_callback(packet):\n",
+        "    print(packet.summary())\n",
+        "\n",
+        "print(\"Capturing first 10 packets...\\n\")\n",
+        "\n",
+        "sniff(prn=packet_callback, count=10)"
+      ]
+    }
+  ]
+}
