@@ -1,0 +1,60 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN1nRTX20swgw1LCqr17xcZ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Lab-2/exp-3\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 21,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "odH7iuT_tHDT",
+        "outputId": "18129872-8623-4143-e4be-42856671604a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "log.txt created successfully!\n"
+          ]
+        }
+      ],
+      "source": [
+        "with open(\"log.txt\", \"w\") as file:\n",
+        "    for i in range(20):\n",
+        "        file.write(\"192.168.1.100 GET /\\n\")\n",
+        "\n",
+        "    for i in range(5):\n",
+        "        file.write(\"192.168.1.101 GET /\\n\")\n",
+        "\n",
+        "print(\"log.txt created successfully!\")"
+      ]
+    }
+  ]
+}
