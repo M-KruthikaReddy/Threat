@@ -1,0 +1,73 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMBnvqSdvpitMhZGzYzR5R/",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Lab-2/exp-5\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 24,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "odH7iuT_tHDT",
+        "outputId": "0cfcb46c-1caa-48ed-cf49-268031128fa4"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Scanning Target: 127.0.0.1\n",
+            "\n",
+            "\n",
+            "Scan Completed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import socket\n",
+        "\n",
+        "target = \"127.0.0.1\"\n",
+        "\n",
+        "print(f\"Scanning Target: {target}\\n\")\n",
+        "\n",
+        "for port in range(20, 1025):\n",
+        "    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n",
+        "    sock.settimeout(0.5)\n",
+        "\n",
+        "    result = sock.connect_ex((target, port))\n",
+        "\n",
+        "    if result == 0:\n",
+        "        print(f\"Port {port} is OPEN\")\n",
+        "\n",
+        "    sock.close()\n",
+        "\n",
+        "print(\"\\nScan Completed.\")"
+      ]
+    }
+  ]
+}
