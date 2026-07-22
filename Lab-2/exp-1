@@ -1,0 +1,67 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOLvv4mnDvV6agvRIbM013K",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Lab-2/exp-1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 19,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "odH7iuT_tHDT",
+        "outputId": "824a1ee5-f4ee-4b57-fb0b-85440e1c78af"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "SHA-256: d736345dab82fb01e17b25306ebfabe6c22e00b691a7b8007ad1c70609f36d19\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib\n",
+        "\n",
+        "# Create a sample file\n",
+        "with open(\"sample.txt\", \"w\") as f:\n",
+        "    f.write(\"Hello, this is a test file.\")\n",
+        "\n",
+        "filename = \"sample.txt\"\n",
+        "\n",
+        "sha256 = hashlib.sha256()\n",
+        "\n",
+        "with open(filename, \"rb\") as f:\n",
+        "    while chunk := f.read(4096):\n",
+        "        sha256.update(chunk)\n",
+        "\n",
+        "print(\"SHA-256:\", sha256.hexdigest())"
+      ]
+    }
+  ]
+}
