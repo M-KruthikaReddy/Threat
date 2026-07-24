@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyN4zrNSXe/Zcp+MDAjMZL7D",
+      "authorship_tag": "ABX9TyNoS9qea712dqZSnVuVwwTx",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,50 +28,48 @@
     },
     {
       "cell_type": "code",
-      "execution_count": 3,
+      "execution_count": 5,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
         "id": "bFQ-55PV60hz",
-        "outputId": "8bfb2ed3-e667-4318-ab17-66938c92f57b"
+        "outputId": "0beaec6a-b6db-4cea-e4c8-6bfeb2aecc0f"
       },
       "outputs": [
         {
           "output_type": "stream",
           "name": "stdout",
           "text": [
-            "INCIDENT RESPONSE REPORT\n",
-            "Generated: 2026-07-24 12:00:08.584774\n",
-            "Source log: login_attempts.log\n",
-            "----------------------------------------\n",
-            "1 suspicious IP(s) detected:\n",
-            " - 203.0.113.99: 5 failed login attempts\n",
-            "Recommended action: Block listed IPs, force password reset.\n"
+            "Baseline (original.txt): 9ac62dc309d11594f1da0d160ded90eca26724461b1c55abeed293c23a0285d1\n",
+            "copy.txt: IDENTICAL\n",
+            "tampered.txt: MODIFIED/TAMPERED\n"
           ]
         }
       ],
       "source": [
-        "import datetime\n",
-        "def generate_report(flagged_ips, source_log):\n",
-        "    lines = []\n",
-        "    lines.append(\"INCIDENT RESPONSE REPORT\")\n",
-        "    lines.append(f\"Generated: {datetime.datetime.now()}\")\n",
-        "    lines.append(f\"Source log: {source_log}\")\n",
-        "    lines.append(\"-\" * 40)\n",
-        "    if flagged_ips:\n",
-        "        lines.append(f\"{len(flagged_ips)} suspicious IP(s) detected:\")\n",
-        "        for ip, count in flagged_ips.items():\n",
-        "            lines.append(f\" - {ip}: {count} failed login attempts\")\n",
-        "        lines.append(\"Recommended action: Block listed IPs, force password reset.\")\n",
-        "    else:\n",
-        "        lines.append(\"No suspicious activity detected.\")\n",
-        "    return \"\\n\".join(lines)\n",
-        "flagged = {\"203.0.113.99\": 5}\n",
-        "report = generate_report(flagged, \"login_attempts.log\")\n",
-        "print(report)\n",
-        "with open(\"incident_report.txt\", \"w\") as f:\n",
-        "    f.write(report)"
+        "import hashlib\n",
+        "\n",
+        "def hash_file(path):\n",
+        "    with open(path, \"rb\") as f:\n",
+        "        return hashlib.sha256(f.read()).hexdigest()\n",
+        "\n",
+        "# Create sample files: one original, one copy, one tampered\n",
+        "with open(\"original.txt\", \"w\") as f:\n",
+        "    f.write(\"System32 backup data\")\n",
+        "with open(\"copy.txt\", \"w\") as f:\n",
+        "    f.write(\"System32 backup data\")\n",
+        "with open(\"tampered.txt\", \"w\") as f:\n",
+        "    f.write(\"System32 backup data - modified\")\n",
+        "\n",
+        "files = [\"original.txt\", \"copy.txt\", \"tampered.txt\"]\n",
+        "hashes = {f: hash_file(f) for f in files}\n",
+        "baseline = hashes[\"original.txt\"]\n",
+        "print(\"Baseline (original.txt):\", baseline)\n",
+        "\n",
+        "for f in files[1:]:\n",
+        "    status = \"IDENTICAL\" if hashes[f] == baseline else \"MODIFIED/TAMPERED\"\n",
+        "    print(f\"{f}: {status}\")"
       ]
     }
   ]
