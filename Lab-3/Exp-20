@@ -1,0 +1,138 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNLkuugDryCP1LRqoSLDHXg",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Lab-3/Exp-20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 7,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xAcLcuuX3cZ1",
+        "outputId": "d3b60d11-1a06-47e0-ebc6-f61fee76ab23"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[('We need to perform network scanning to find open ports on the target.', 'Nmap'), ('The analyst wants to inspect packet capture data during the incident.', 'Wireshark'), (\"Check the file hash reputation to see if it's known malware.\", 'VirusTotal'), ('Our team wants to enable threat intelligence sharing of indicators of compromise with partners.', 'MISP')]\n",
+            "Experiment 7: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib\n",
+        "import json\n",
+        "import re\n",
+        "import random\n",
+        "import statistics\n",
+        "import time\n",
+        "\n",
+        "tool_catalog = {\n",
+        "    \"Wireshark\": {\n",
+        "        \"purpose\": \"packet analysis\",\n",
+        "        \"keywords\": [\"packet analysis\", \"packet capture\", \"network traffic\"]\n",
+        "    },\n",
+        "    \"Nmap\": {\n",
+        "        \"purpose\": \"network scanning\",\n",
+        "        \"keywords\": [\"network scanning\", \"open ports\", \"port scan\"]\n",
+        "    },\n",
+        "    \"Nessus\": {\n",
+        "        \"purpose\": \"vulnerability assessment\",\n",
+        "        \"keywords\": [\"vulnerability assessment\", \"known vulnerabilities\"]\n",
+        "    },\n",
+        "    \"Burp Suite\": {\n",
+        "        \"purpose\": \"web application testing\",\n",
+        "        \"keywords\": [\"web application testing\", \"http proxy\"]\n",
+        "    },\n",
+        "    \"Metasploit\": {\n",
+        "        \"purpose\": \"penetration testing\",\n",
+        "        \"keywords\": [\"penetration testing\", \"exploit code\"]\n",
+        "    },\n",
+        "    \"Splunk\": {\n",
+        "        \"purpose\": \"log management and SIEM\",\n",
+        "        \"keywords\": [\"log search\", \"siem dashboard\"]\n",
+        "    },\n",
+        "    \"ELK Stack\": {\n",
+        "        \"purpose\": \"log collection and visualization\",\n",
+        "        \"keywords\": [\"log visualization\", \"elasticsearch\"]\n",
+        "    },\n",
+        "    \"Snort\": {\n",
+        "        \"purpose\": \"intrusion detection\",\n",
+        "        \"keywords\": [\"intrusion detection\"]\n",
+        "    },\n",
+        "    \"VirusTotal\": {\n",
+        "        \"purpose\": \"malware scanning\",\n",
+        "        \"keywords\": [\"malware scanning\", \"file hash reputation\"]\n",
+        "    },\n",
+        "    \"MISP\": {\n",
+        "        \"purpose\": \"threat intelligence sharing\",\n",
+        "        \"keywords\": [\"threat intelligence sharing\", \"indicators of compromise\"]\n",
+        "    },\n",
+        "}\n",
+        "\n",
+        "def recommend_tool(task_description):\n",
+        "    task_lower = task_description.lower()\n",
+        "\n",
+        "    scores = {\n",
+        "        tool: sum(\n",
+        "            1 for kw in info[\"keywords\"]\n",
+        "            if kw in task_lower\n",
+        "        )\n",
+        "        for tool, info in tool_catalog.items()\n",
+        "    }\n",
+        "\n",
+        "    scores = {t: s for t, s in scores.items() if s > 0}\n",
+        "\n",
+        "    return max(scores, key=scores.get) if scores else None\n",
+        "\n",
+        "test_tasks = [\n",
+        "    \"We need to perform network scanning to find open ports on the target.\",\n",
+        "    \"The analyst wants to inspect packet capture data during the incident.\",\n",
+        "    \"Check the file hash reputation to see if it's known malware.\",\n",
+        "    \"Our team wants to enable threat intelligence sharing of indicators of compromise with partners.\"\n",
+        "]\n",
+        "\n",
+        "recommendations = [recommend_tool(t) for t in test_tasks]\n",
+        "\n",
+        "print(list(zip(test_tasks, recommendations)))\n",
+        "\n",
+        "def test_experiment7():\n",
+        "    assert recommendations[0] == \"Nmap\"\n",
+        "    assert recommendations[1] == \"Wireshark\"\n",
+        "    assert recommendations[2] == \"VirusTotal\"\n",
+        "    assert recommendations[3] == \"MISP\"\n",
+        "    assert recommend_tool(\"completely unrelated text about cooking pasta\") is None\n",
+        "    print(\"Experiment 7: All test cases passed.\")\n",
+        "\n",
+        "test_experiment7()"
+      ]
+    }
+  ]
+}
