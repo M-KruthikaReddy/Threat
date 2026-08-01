@@ -1,0 +1,113 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN6nXgCeosOd/Do397FgLd0",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Lab-3/Exp-19\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 6,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xAcLcuuX3cZ1",
+        "outputId": "ae3cbcbb-738d-4b43-b78c-3683a106b9da"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Stream length: 22 | Flags raised: 2\n",
+            "{'event': {'hour': 3, 'failed_logins': 0}, 'reasons': ['off-hours activity']}\n",
+            "{'event': {'hour': 10, 'failed_logins': 9}, 'reasons': ['excessive failed logins']}\n",
+            "Experiment 6: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib\n",
+        "import json\n",
+        "import re\n",
+        "import random\n",
+        "import statistics\n",
+        "import time\n",
+        "\n",
+        "random.seed(42)\n",
+        "\n",
+        "def generate_event_stream(n=20):\n",
+        "    stream = []\n",
+        "\n",
+        "    for _ in range(n):\n",
+        "        stream.append({\n",
+        "            \"hour\": random.choice([9, 10, 11, 14, 15, 16]),\n",
+        "            \"failed_logins\": random.choice([0, 0, 0, 1]),\n",
+        "        })\n",
+        "\n",
+        "    stream.append({\"hour\": 3, \"failed_logins\": 0})\n",
+        "    stream.append({\"hour\": 10, \"failed_logins\": 9})\n",
+        "\n",
+        "    return stream\n",
+        "\n",
+        "def monitor_stream(stream):\n",
+        "    flags = []\n",
+        "\n",
+        "    for event in stream:\n",
+        "        reasons = []\n",
+        "\n",
+        "        if event[\"hour\"] < 6 or event[\"hour\"] > 22:\n",
+        "            reasons.append(\"off-hours activity\")\n",
+        "\n",
+        "        if event[\"failed_logins\"] >= 5:\n",
+        "            reasons.append(\"excessive failed logins\")\n",
+        "\n",
+        "        if reasons:\n",
+        "            flags.append({\n",
+        "                \"event\": event,\n",
+        "                \"reasons\": reasons\n",
+        "            })\n",
+        "\n",
+        "    return flags\n",
+        "\n",
+        "event_stream = generate_event_stream()\n",
+        "flags = monitor_stream(event_stream)\n",
+        "\n",
+        "print(f\"Stream length: {len(event_stream)} | Flags raised: {len(flags)}\")\n",
+        "\n",
+        "for f in flags:\n",
+        "    print(f)\n",
+        "\n",
+        "def test_experiment6():\n",
+        "    assert len(flags) == 2\n",
+        "    assert any(\"off-hours activity\" in f[\"reasons\"] for f in flags)\n",
+        "    assert any(\"excessive failed logins\" in f[\"reasons\"] for f in flags)\n",
+        "    print(\"Experiment 6: All test cases passed.\")\n",
+        "\n",
+        "test_experiment6()"
+      ]
+    }
+  ]
+}
