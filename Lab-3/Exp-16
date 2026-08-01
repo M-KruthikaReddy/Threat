@@ -1,0 +1,113 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOutHTUf5DKAfKbpI6d6zON",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Lab-3/Exp-16\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xAcLcuuX3cZ1",
+        "outputId": "60be673c-6d54-4e0e-d152-842c98311e88"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Hypothesis-based hits: [{'process': 'powershell.exe', 'args': '-enc SGVsbG8=', 'user': 'svc_admin'}, {'process': 'powershell.exe', 'args': '-nop -w hidden -enc ZXZpbA==', 'user': 'jdoe'}]\n",
+            "Intelligence-based hits: [{'ip': '45.33.32.156'}, {'ip': '185.220.101.1'}]\n",
+            "Analytics-based result: {'z_score': 9.62, 'anomalous': True}\n",
+            "Experiment 3: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib\n",
+        "import json\n",
+        "import re\n",
+        "import random\n",
+        "import statistics\n",
+        "import time\n",
+        "\n",
+        "execution_logs = [\n",
+        "    {\"process\": \"powershell.exe\", \"args\": \"-enc SGVsbG8=\", \"user\": \"svc_admin\"},\n",
+        "    {\"process\": \"notepad.exe\", \"args\": \"\", \"user\": \"jdoe\"},\n",
+        "    {\"process\": \"powershell.exe\", \"args\": \"-nop -w hidden -enc ZXZpbA==\", \"user\": \"jdoe\"},\n",
+        "]\n",
+        "\n",
+        "def hypothesis_hunt_powershell(logs):\n",
+        "    return [l for l in logs if l[\"process\"] == \"powershell.exe\" and \"-enc\" in l[\"args\"]]\n",
+        "\n",
+        "connection_logs = [\n",
+        "    {\"ip\": \"45.33.32.156\"},\n",
+        "    {\"ip\": \"8.8.8.8\"},\n",
+        "    {\"ip\": \"185.220.101.1\"}\n",
+        "]\n",
+        "\n",
+        "known_malicious_ips = {\n",
+        "    \"45.33.32.156\",\n",
+        "    \"185.220.101.1\"\n",
+        "}\n",
+        "\n",
+        "def intelligence_hunt(logs, feed):\n",
+        "    return [l for l in logs if l[\"ip\"] in feed]\n",
+        "\n",
+        "login_hours_history = [9, 9, 10, 9, 8, 9, 10]\n",
+        "new_login_hour = 3\n",
+        "\n",
+        "def analytics_hunt(history, new_value, threshold=2.0):\n",
+        "    mean = statistics.mean(history)\n",
+        "    stdev = statistics.pstdev(history) or 1\n",
+        "    z = abs(new_value - mean) / stdev\n",
+        "    return {\n",
+        "        \"z_score\": round(z, 2),\n",
+        "        \"anomalous\": z > threshold\n",
+        "    }\n",
+        "\n",
+        "hyp_result = hypothesis_hunt_powershell(execution_logs)\n",
+        "intel_result = intelligence_hunt(connection_logs, known_malicious_ips)\n",
+        "analytics_result = analytics_hunt(login_hours_history, new_login_hour)\n",
+        "\n",
+        "print(\"Hypothesis-based hits:\", hyp_result)\n",
+        "print(\"Intelligence-based hits:\", intel_result)\n",
+        "print(\"Analytics-based result:\", analytics_result)\n",
+        "\n",
+        "def test_experiment3():\n",
+        "    assert len(hyp_result) == 2\n",
+        "    assert all(r[\"process\"] == \"powershell.exe\" for r in hyp_result)\n",
+        "    assert len(intel_result) == 2\n",
+        "    assert analytics_result[\"anomalous\"] is True\n",
+        "    print(\"Experiment 3: All test cases passed.\")\n",
+        "\n",
+        "test_experiment3()"
+      ]
+    }
+  ]
+}
