@@ -1,0 +1,84 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPhp1VF+B/ES9Was97xxum9",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Topic-9/Q4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 106
+        },
+        "id": "fVVR-xqmDpLe",
+        "outputId": "bec3bd98-f7e7-4926-fd8e-bd8400802568"
+      },
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "SyntaxError",
+          "evalue": "invalid syntax (3533955346.py, line 23)",
+          "traceback": [
+            "\u001b[0;36m  File \u001b[0;32m\"/tmp/ipykernel_656/3533955346.py\"\u001b[0;36m, line \u001b[0;32m23\u001b[0m\n\u001b[0;31m    Test Cases\u001b[0m\n\u001b[0m         ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m invalid syntax\n"
+          ]
+        }
+      ],
+      "source": [
+        "raw_events = [\n",
+        " {\"source\": \"firewall\", \"ip\": \"45.33.32.156\", \"event\": \"blocked\"},  {\"source\": \"antivirus\", \"host\": \"WIN10-05\", \"event\": \"malware_detected\",  \"file\": \"invoice.exe\"},\n",
+        " {\"source\": \"server\", \"event\": \"login_success\", \"user\": \"admin\"}, ]\n",
+        "def normalize(events):\n",
+        " return [{\n",
+        " \"source\": e[\"source\"],\n",
+        " \"event_type\": e[\"event\"],\n",
+        " \"severity\": \"high\" if e[\"event\"] in (\"malware_detected\", \"blocked\") else  \"low\",\n",
+        " } for e in events]\n",
+        "def correlation_engine(normalized_events):\n",
+        " return [e for e in normalized_events if e[\"severity\"] == \"high\"]\n",
+        "def generate_alerts(high_severity_events):\n",
+        " return [f\"ALERT: {e['source']} reported {e['event_type']}\" for e in  high_severity_events]\n",
+        "normalized = normalize(raw_events)\n",
+        "correlated = correlation_engine(normalized)\n",
+        "siem_alerts = generate_alerts(correlated)\n",
+        "print(\"Normalized:\", normalized)\n",
+        "print(\"Correlated (high severity):\", correlated)\n",
+        "print(\"Alerts:\", siem_alerts)\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Test Cases\n",
+        "def test_experiment4():\n",
+        " assert len(normalized) == 3\n",
+        " assert len(correlated) == 2, \"Only the 2 high-severity events should reach  correlation\"\n",
+        " assert len(siem_alerts) == 2\n",
+        " assert all(a.startswith(\"ALERT:\") for a in siem_alerts)\n",
+        " print(\"Experiment 4: All test cases passed.\")\n",
+        "test_experiment4()"
+      ]
+    }
+  ]
+}
