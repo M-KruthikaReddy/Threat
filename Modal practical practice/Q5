@@ -1,0 +1,70 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNVyINVg50399HqqTI8Z1tz",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Modal%20practical%20practice/Q5\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 5,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w1JLGJbSC53z",
+        "outputId": "3dd7a10c-9040-4d26-b3fd-83d55984c2b2"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter report description: Report about attacker techniques and MITRE tactics\n",
+            "Enter intended audience: Security analysts\n",
+            "Classification: Tactical\n"
+          ]
+        }
+      ],
+      "source": [
+        "description = input(\"Enter report description: \").lower()\n",
+        "audience = input(\"Enter intended audience: \").lower()\n",
+        "\n",
+        "text = description + \" \" + audience\n",
+        "\n",
+        "strategic = [\"executive\", \"management\", \"business\", \"risk\", \"long term\"]\n",
+        "tactical = [\"attacker\", \"technique\", \"mitre\", \"campaign\"]\n",
+        "operational = [\"ip\", \"domain\", \"hash\", \"ioc\", \"incident\"]\n",
+        "\n",
+        "scores = {\n",
+        "    \"Strategic\": sum(x in text for x in strategic),\n",
+        "    \"Tactical\": sum(x in text for x in tactical),\n",
+        "    \"Operational\": sum(x in text for x in operational)\n",
+        "}\n",
+        "\n",
+        "print(\"Classification:\", max(scores, key=scores.get))"
+      ]
+    }
+  ]
+}
