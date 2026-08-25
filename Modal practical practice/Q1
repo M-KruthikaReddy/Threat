@@ -1,0 +1,69 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPLKwNTJgrTRupZYW+3eHN3",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Modal%20practical%20practice/Q1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w1JLGJbSC53z",
+        "outputId": "a358c3f8-7e84-46c3-fc24-bd6e7ca2ae8e"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter business scenario: Bank detects suspicious credit card transactions\n",
+            "Threat Intelligence Application Area: Banking Fraud Prevention\n"
+          ]
+        }
+      ],
+      "source": [
+        "# 1. Threat Intelligence Application Area\n",
+        "\n",
+        "scenario = input(\"Enter business scenario: \").lower()\n",
+        "\n",
+        "if any(word in scenario for word in [\"bank\", \"banking\", \"payment\", \"credit card\", \"transaction\"]):\n",
+        "    area = \"Banking Fraud Prevention\"\n",
+        "elif any(word in scenario for word in [\"hospital\", \"healthcare\", \"patient\", \"medical\"]):\n",
+        "    area = \"Healthcare Data Protection\"\n",
+        "elif any(word in scenario for word in [\"online store\", \"e-commerce\", \"shopping\", \"customer\"]):\n",
+        "    area = \"E-commerce Fraud Prevention\"\n",
+        "elif any(word in scenario for word in [\"government\", \"public sector\"]):\n",
+        "    area = \"Government Cybersecurity\"\n",
+        "else:\n",
+        "    area = \"General Cyber Threat Monitoring\"\n",
+        "\n",
+        "print(\"Threat Intelligence Application Area:\", area)"
+      ]
+    }
+  ]
+}
