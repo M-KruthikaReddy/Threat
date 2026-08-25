@@ -1,0 +1,68 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPhyqtADJMWoP+aLO1VrWRS",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Modal%20practical%20practice/Q8\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 9,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w1JLGJbSC53z",
+        "outputId": "fa0db297-86b7-4160-e016-40fcae8ac0eb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter source segment: Low-Trust\n",
+            "Enter destination segment: Database\n",
+            "ACCESS BLOCKED\n"
+          ]
+        }
+      ],
+      "source": [
+        "network = {\n",
+        "    \"Low-Trust\": [\"Internet\"],\n",
+        "    \"User\": [\"Internet\", \"Application\"],\n",
+        "    \"Application\": [\"Database\"],\n",
+        "    \"Database\": []\n",
+        "}\n",
+        "\n",
+        "source = input(\"Enter source segment: \")\n",
+        "destination = input(\"Enter destination segment: \")\n",
+        "\n",
+        "if destination in network.get(source, []):\n",
+        "    print(\"ACCESS ALLOWED\")\n",
+        "else:\n",
+        "    print(\"ACCESS BLOCKED\")"
+      ]
+    }
+  ]
+}
