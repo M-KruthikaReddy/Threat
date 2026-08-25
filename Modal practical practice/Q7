@@ -1,0 +1,94 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMf8eFie7rppDUg+cYxXHZj",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Modal%20practical%20practice/Q7\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 8,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w1JLGJbSC53z",
+        "outputId": "4aa95c96-d9de-4f7a-f9f1-ba885cd541fb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Indexed Events:\n",
+            "{'level': 'INFO', 'event': 'login', 'user': 'kruthi'}\n",
+            "{'level': 'ERROR', 'event': 'failed_login', 'user': 'admin'}\n",
+            "{'level': 'INFO', 'event': 'login', 'user': 'kruthi'}\n",
+            "{'level': 'ERROR', 'event': 'failed_login', 'user': 'admin'}\n",
+            "\n",
+            "Event Counts:\n",
+            "login : 2\n",
+            "failed_login : 2\n"
+          ]
+        }
+      ],
+      "source": [
+        "from collections import Counter\n",
+        "\n",
+        "logs = [\n",
+        "    \"INFO login user=kruthi\",\n",
+        "    \"ERROR failed_login user=admin\",\n",
+        "    \"INFO login user=kruthi\",\n",
+        "    \"ERROR failed_login user=admin\"\n",
+        "]\n",
+        "\n",
+        "events = []\n",
+        "\n",
+        "# Logstash\n",
+        "for log in logs:\n",
+        "    parts = log.split()\n",
+        "\n",
+        "    events.append({\n",
+        "        \"level\": parts[0],\n",
+        "        \"event\": parts[1],\n",
+        "        \"user\": parts[2].split(\"=\")[1]\n",
+        "    })\n",
+        "\n",
+        "# Elasticsearch\n",
+        "index = events\n",
+        "\n",
+        "print(\"Indexed Events:\")\n",
+        "for event in index:\n",
+        "    print(event)\n",
+        "\n",
+        "# Kibana\n",
+        "counts = Counter(event[\"event\"] for event in events)\n",
+        "\n",
+        "print(\"\\nEvent Counts:\")\n",
+        "for event, count in counts.items():\n",
+        "    print(event, \":\", count)"
+      ]
+    }
+  ]
+}
