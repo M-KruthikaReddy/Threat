@@ -1,0 +1,81 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNSjsjnG0jwgz4s76yLUELV",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Modal%20practical%20practice/Q14\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 16,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w1JLGJbSC53z",
+        "outputId": "dce5d2d2-878d-4f07-962a-02e32e134711"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Events Collected: 4\n",
+            "Failed Logins: 2\n",
+            "Firewall Denials: 2\n",
+            "ALERT: Possible coordinated attack detected\n"
+          ]
+        }
+      ],
+      "source": [
+        "events = [\n",
+        "    \"AUTH FAIL user=admin\",\n",
+        "    \"FW DENY src=10.0.0.5\",\n",
+        "    \"AUTH FAIL user=admin\",\n",
+        "    \"FW DENY src=10.0.0.5\"\n",
+        "]\n",
+        "\n",
+        "failed_login = 0\n",
+        "firewall_denied = 0\n",
+        "\n",
+        "for event in events:\n",
+        "\n",
+        "    if \"AUTH FAIL\" in event:\n",
+        "        failed_login += 1\n",
+        "\n",
+        "    if \"FW DENY\" in event:\n",
+        "        firewall_denied += 1\n",
+        "\n",
+        "print(\"Events Collected:\", len(events))\n",
+        "print(\"Failed Logins:\", failed_login)\n",
+        "print(\"Firewall Denials:\", firewall_denied)\n",
+        "\n",
+        "if failed_login >= 2 and firewall_denied >= 2:\n",
+        "    print(\"ALERT: Possible coordinated attack detected\")\n",
+        "else:\n",
+        "    print(\"No alert\")"
+      ]
+    }
+  ]
+}
