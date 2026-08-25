@@ -1,0 +1,73 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM1zMo+/XavQURZX5WHYS6A",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Modal%20practical%20practice/Q10\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 11,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w1JLGJbSC53z",
+        "outputId": "c4f4b70a-135c-4cd9-c400-e70c4b43e683"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "OUTBOUND: PERMITTED\n",
+            "INBOUND: PERMITTED - Return Traffic\n",
+            "INBOUND: BLOCKED - Unsolicited\n"
+          ]
+        }
+      ],
+      "source": [
+        "connections = set()\n",
+        "\n",
+        "packets = [\n",
+        "    (\"OUTBOUND\", \"client\", \"server\", 80),\n",
+        "    (\"INBOUND\", \"server\", \"client\", 80),\n",
+        "    (\"INBOUND\", \"unknown\", \"client\", 22)\n",
+        "]\n",
+        "\n",
+        "for direction, source, destination, port in packets:\n",
+        "\n",
+        "    if direction == \"OUTBOUND\":\n",
+        "        connections.add((source, destination, port))\n",
+        "        print(\"OUTBOUND:\", \"PERMITTED\")\n",
+        "\n",
+        "    else:\n",
+        "        if (destination, source, port) in connections:\n",
+        "            print(\"INBOUND:\", \"PERMITTED - Return Traffic\")\n",
+        "        else:\n",
+        "            print(\"INBOUND:\", \"BLOCKED - Unsolicited\")"
+      ]
+    }
+  ]
+}
