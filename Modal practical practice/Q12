@@ -1,0 +1,65 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOYc8jdPfHjkXH2NMSrBJ3j",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Modal%20practical%20practice/Q12\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 14,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w1JLGJbSC53z",
+        "outputId": "1f757b5b-ab9e-48ec-b9a5-68bfdd65f880"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter SOC alert: Ransomware detected on critical server\n",
+            "Priority: P1 - Critical\n"
+          ]
+        }
+      ],
+      "source": [
+        "alert = input(\"Enter SOC alert: \").lower()\n",
+        "\n",
+        "if any(x in alert for x in [\"ransomware\", \"data breach\", \"active attack\"]):\n",
+        "    priority = \"P1 - Critical\"\n",
+        "elif any(x in alert for x in [\"malware\", \"privilege escalation\"]):\n",
+        "    priority = \"P2 - High\"\n",
+        "elif any(x in alert for x in [\"phishing\", \"suspicious login\"]):\n",
+        "    priority = \"P3 - Medium\"\n",
+        "else:\n",
+        "    priority = \"P4 - Low\"\n",
+        "\n",
+        "print(\"Priority:\", priority)"
+      ]
+    }
+  ]
+}
