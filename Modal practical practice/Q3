@@ -1,0 +1,77 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyP0oWN2Bs6uY1i4R4/Ysprm",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-KruthikaReddy/Threat/blob/main/Modal%20practical%20practice/Q3\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w1JLGJbSC53z",
+        "outputId": "c431cdcd-2454-43fa-86a9-331644f361c1"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter security policy text: This policy defines the scope and roles of employees. It is reviewed annually.\n",
+            "Missing Elements:\n",
+            "- Enforcement\n",
+            "- Approval Authority\n"
+          ]
+        }
+      ],
+      "source": [
+        "policy = input(\"Enter security policy text: \").lower()\n",
+        "\n",
+        "requirements = {\n",
+        "    \"Scope\": [\"scope\"],\n",
+        "    \"Roles and Responsibilities\": [\"roles\", \"responsibilities\"],\n",
+        "    \"Enforcement\": [\"enforcement\"],\n",
+        "    \"Review Cycle\": [\"review\", \"annually\"],\n",
+        "    \"Approval Authority\": [\"approved by\", \"approval\"]\n",
+        "}\n",
+        "\n",
+        "missing = []\n",
+        "\n",
+        "for requirement, keywords in requirements.items():\n",
+        "    if not any(word in policy for word in keywords):\n",
+        "        missing.append(requirement)\n",
+        "\n",
+        "if missing:\n",
+        "    print(\"Missing Elements:\")\n",
+        "    for item in missing:\n",
+        "        print(\"-\", item)\n",
+        "else:\n",
+        "    print(\"All governance elements are present.\")"
+      ]
+    }
+  ]
+}
